@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var browserify = require('browserify');
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
@@ -21,13 +22,12 @@ var sourcemaps = require('gulp-sourcemaps');
 var mochaPhantomJS = require('gulp-mocha-phantomjs');
 var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
+var buffer = require('vinyl-buffer');
+var source = require('vinyl-source-stream');
 
+var POLYFILLS_FILE = 'fills.js';
 var SRC_FILE = 'stackdriver-errors.js';
 var DEST = 'dist/';
-
-var dependencies = [
-    './node_modules/stacktrace-js/dist/stacktrace-with-promises-and-json-polyfills.js',
-];
 
 gulp.task('lint', function() {
   return gulp.src(SRC_FILE)
@@ -41,10 +41,18 @@ gulp.task('test', function () {
     .pipe(mochaPhantomJS({reporter: 'spec'}));
 });
 
-gulp.task('dist', function() {
-  return gulp.src(dependencies.concat(SRC_FILE))
+gulp.task('lib-concat', function() {
+  return browserify({
+    debug: true,
+    entries: [POLYFILLS_FILE, SRC_FILE],
+    standalone: 'StackdriverErrorReporter',
+  })
+    .plugin('browser-pack-flat/plugin')
+    .bundle()
+    .pipe(source(SRC_FILE))
+    .pipe(rename({ suffix: '-concat' }))
+    .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(concat(SRC_FILE.replace('.js', '-concat.js')))
     // This will output the non-minified version
     .pipe(gulp.dest(DEST))
     // This will minify and rename to stackdriver-errors.min.js
@@ -72,4 +80,4 @@ gulp.task('demo-js', function() {
 });
 
 gulp.task('default', ['lint', 'test']);
-gulp.task('demo', ['dist', 'demo-html', 'demo-js']);
+gulp.task('demo', ['lib-concat', 'demo-html', 'demo-js']);

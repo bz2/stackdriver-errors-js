@@ -4,16 +4,19 @@
   "description": "Experimental client-side JavaScript library to report errors to Stackdriver Error Reporting",
   "main": "stackdriver-errors.js",
   "scripts": {
-    "test": "gulp",
-    "dist": "gulp dist",
-    "prepare": "npm run dist",
+    "dist": "gulp lib-concat",
     "lint": "gulp lint",
-    "start": "gulp demo && http-server ./dist -o"
+    "prepare": "npm run dist",
+    "start": "gulp demo && http-server ./dist -o",
+    "test": "gulp"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/GoogleCloudPlatform/stackdriver-errors-js"
   },
+  "files": [
+    "dist/"
+  ],
   "keywords": [
     "stackdriver",
     "error",
@@ -25,6 +28,8 @@
   "author": "steren@google.com",
   "license": "Apache-2.0",
   "devDependencies": {
+    "browser-pack-flat": "^3.2.0",
+    "browserify": "^16.2.3",
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
@@ -37,9 +42,12 @@
     "http-server": "^0.11.1",
     "jshint": "^2.9.6",
     "mocha": "^5.2.0",
-    "sinon": "^7.1.1"
+    "sinon": "^7.1.1",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
+    "core-js": "^2.5.7",
     "stacktrace-js": "^2.0.0"
   }
 }
