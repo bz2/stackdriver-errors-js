@@ -87,13 +87,6 @@ describe('Initialization', function () {
    expect(function() {errorHandler.start({key:'key'});}).to.throw(Error, /project/);
  });
 
- it('should fail if StackTrace is undefined', function () {
-   var stackTrace = window.StackTrace;
-   delete window.StackTrace;
-   expect(function() {errorHandler.start({projectId:'projectId', key:'key'});}).to.throw(Error, /stackdriver-errors-concat/);
-   window.StackTrace = stackTrace;
- });
-
  it('should succeed if custom target url provided without API key or project id', function () {
    expect(function() {errorHandler.start({targetUrl:'custom-url'});}).to.not.throw();
  });
