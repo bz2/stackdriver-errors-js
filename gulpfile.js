@@ -71,9 +71,16 @@ gulp.task('demo-html', function() {
 });
 
 gulp.task('demo-js', function() {
-  return gulp.src('demo/demo.js')
-    .pipe(sourcemaps.init())
-    .pipe(uglify())
+  return browserify({
+    debug: true,
+    entries: 'demo/demo.js',
+    standalone: 'demo',
+  })
+    .transform('babelify', { presets: ['@babel/preset-env']})
+    .bundle()
+    .pipe(source('demo.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(sourcemaps.write('maps'))
     .pipe(gulp.dest('dist'));

@@ -38,13 +38,13 @@
               Clicking these buttons will trigger JavaScript error in the browser.
             </p>
              <p>
-               <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="vanillaCrash()">Uncaught JS Exception</button>
+               <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="demo.vanillaCrash()">Uncaught JS Exception</button>
              </p>
              <p>
-               <button class="mdl-button mdl-js-button mdl-button--raised" onclick="reportErrorMessage()">Error message</button>
+               <button class="mdl-button mdl-js-button mdl-button--raised" onclick="demo.reportErrorMessage()">Error message</button>
              </p>
              <p>
-               <button class="mdl-button mdl-js-button mdl-button--raised" onclick="catchCrashAndReport()">Catched exception</button>
+               <button class="mdl-button mdl-js-button mdl-button--raised" onclick="demo.catchCrashAndReport()">Catched exception</button>
              </p>
 
           <h4>Parameters</h4>
@@ -61,7 +61,7 @@
               </div>
             </p>
             <p>
-              <button class="mdl-button mdl-js-button mdl-button--raised" onclick="updateConfig()">Update</button>
+              <button class="mdl-button mdl-js-button mdl-button--raised" onclick="demo.updateConfig()">Update</button>
             </p>
 
         </div>
@@ -70,7 +70,6 @@
   </div>
 
   <!-- scripts for stackdriver and demo application -->
-  <script src="../dist/stackdriver-errors-concat.min.js"></script>
   <script src="../demo/demo.js"></script>
 </body>
 </html>

@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import StackdriverErrorReporter from '../stackdriver-errors';
 var StackdriverErrors = new StackdriverErrorReporter();
 
-function updateConfig() {
+export function updateConfig() {
   var key = document.getElementById('input-apikey').value;
   var projectId = document.getElementById('input-projectid').value;
 
@@ -47,7 +48,7 @@ loadFromLocalStorage();
 
 // Fake application code
 var users;
-function vanillaCrash() {
+export function vanillaCrash() {
   starUsers();
 }
 function starUsers() {
@@ -67,10 +68,10 @@ function addUser(name) {
 
 
 // Buttons logic
-function reportErrorMessage() {
+export function reportErrorMessage() {
   displayUserInfo();
 }
-function catchCrashAndReport() {
+export function catchCrashAndReport() {
   try {
     addUser('Keyser Söze');
   } catch (e) {
